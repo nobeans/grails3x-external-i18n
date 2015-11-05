@@ -65,6 +65,28 @@ grails:
                 scriptlets: html
                 taglib: none
                 staticparts: none
+
+# i18nメッセージリソースの指定
+#   リソースの順番について
+#     メッセージキーの解決は先に見つかったキーが優先される。
+#     そのため同じキーが複数のファイルに存在する場合は、先に読み込んだファイルのキーが優先される。
+#   ファイルの指定方法について
+#     指定方法は以下の３つが存在する。
+#      - 無印
+#          ServletContext#getResourceで解決されるようにWARの展開ディレクトリを起点に解決される。
+#          先頭に/がついていてもついていなくても(例: /WEB-INF/xxx と WEB-INF/xxx)同じ動作をするが、正式には/を付けるのが正解。
+#      - file:
+#          ファイルパスに従い解決される。
+#          WARの展開ディレクトを起点に相対パスで解決したい場合はfile:を使用せず無印でパスを指定すること。
+#      - classpath:
+#          クラスパスに従い解決される。
+i18n:
+    messageSource:
+        additionalBasenames:
+          - file:///tmp/my               # ファイル名は自由につけて良い。拡張子(.properties)は省略して指定する。
+          - /WEB-INF/grails-app/i18n/my  # my.properties, my_ja.properties などのように各言語ごとのファイルを配置できる
+        defaultEncoding: UTF-8
+
 ---
 hibernate:
     cache:
